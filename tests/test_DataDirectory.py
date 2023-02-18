@@ -19,15 +19,12 @@ class TestDataDirectory:
             shutil.rmtree(TestDataDirectory.not_existing_dir)
 
     def test_create_basedir_if_not_exists(self) -> None:
-        data_dir = DataDirectory(TestDataDirectory.not_existing_dir)
+        _ = DataDirectory(TestDataDirectory.not_existing_dir)
 
         assert os.path.isdir(TestDataDirectory.not_existing_dir)
 
     def test_create_basedir_if_exists(self) -> None:
-        try:
-            data_dir = DataDirectory(TestDataDirectory.basedir)
-        except FileExistsError:
-            assert False, 'create_basedir() should not raise FileExistsError'
+        _ = DataDirectory(TestDataDirectory.basedir)
 
     def test_create_subdir_if_not_exists(self) -> None:
         data_dir = DataDirectory(TestDataDirectory.basedir)
@@ -43,10 +40,7 @@ class TestDataDirectory:
 
         os.makedirs(os.path.join(TestDataDirectory.basedir, subdir))
 
-        try:
-            data_dir.create_subdir(subdir)
-        except FileExistsError:
-            assert False, 'create_subdir() should not raise FileExistsError'
+        data_dir.create_subdir(subdir)
 
     def test_subdir_exists_if_not_exists(self) -> None:
         data_dir = DataDirectory(TestDataDirectory.basedir)
