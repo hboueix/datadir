@@ -23,7 +23,7 @@ class DataDirectory:
         file_path = os.path.join(self.basedir_path, file_path)
         return os.path.isfile(file_path)
 
-    def get_all_subdirs_and_files(self) -> Dict[str, str]:
+    def get_tree(self) -> Dict[str, str]:
         all_subdirs, all_files = list(), list()
         for root, dirs, files in os.walk(self.basedir_path):
             for name in files:
