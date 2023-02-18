@@ -35,3 +35,14 @@ class TestDataDirectory:
         data_dir.create_subdir(subdir)
 
         assert os.path.isdir(os.path.join(TestDataDirectory.basedir, subdir))
+
+    def test_create_subdir_if_exists(self):
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        subdir = 'existing_subdir'
+
+        os.makedirs(os.path.join(TestDataDirectory.basedir, subdir))
+
+        try:
+            data_dir.create_subdir(subdir)
+        except FileExistsError:
+            assert False, 'create_subdir() should not raise FileExistsError'
