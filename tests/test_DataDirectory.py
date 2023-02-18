@@ -67,3 +67,12 @@ class TestDataDirectory:
         file = 'not_existing_file'
 
         assert data_dir.file_exists(file) is False
+
+    def test_file_exists_if_exists(self) -> None:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        file = 'existing_file'
+
+        with open(os.path.join(TestDataDirectory.basedir, file), 'w') as f:
+            f.write('')
+
+        assert data_dir.file_exists(file) is True
