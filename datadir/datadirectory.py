@@ -15,4 +15,5 @@ class DataDirectory:
         os.makedirs(subdir_path, exist_ok=exist_ok)
 
     def subdir_exists(self, subdir_path: str) -> bool:
-        pass
+        subdir_path = os.path.join(self.basedir_path, subdir_path)
+        return os.path.isdir(subdir_path)
