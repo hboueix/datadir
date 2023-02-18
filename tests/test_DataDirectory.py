@@ -20,3 +20,9 @@ class TestDataDirectory:
         data_dir = DataDirectory(TestDataDirectory.not_existing_dir)
 
         assert os.path.isdir(TestDataDirectory.not_existing_dir)
+
+    def test_create_basedir_if_exists(self):
+        try:
+            data_dir = DataDirectory(TestDataDirectory.basedir)
+        except FileExistsError:
+            assert False, 'create_basedir() should not raise FileExistsError'
