@@ -11,4 +11,5 @@ class DataDirectory:
         os.makedirs(self.basedir_path, exist_ok=exist_ok)
 
     def create_subdir(self, subdir_path: str) -> None:
-        pass
+        subdir_path = os.path.join(self.basedir_path, subdir_path)
+        os.makedirs(subdir_path)

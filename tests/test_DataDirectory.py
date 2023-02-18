@@ -1,4 +1,5 @@
 import os
+import shutil
 
 from datadir import DataDirectory
 
@@ -12,9 +13,9 @@ class TestDataDirectory:
         os.makedirs(TestDataDirectory.basedir, exist_ok=False)
 
     def teardown_method(self, method):
-        os.rmdir(TestDataDirectory.basedir)
+        shutil.rmtree(TestDataDirectory.basedir)
         if os.path.exists(TestDataDirectory.not_existing_dir):
-            os.rmdir(TestDataDirectory.not_existing_dir)
+            shutil.rmtree(TestDataDirectory.not_existing_dir)
 
     def test_create_basedir_if_not_exists(self):
         data_dir = DataDirectory(TestDataDirectory.not_existing_dir)
