@@ -9,3 +9,6 @@ class DataDirectory:
 
     def create_basedir(self, exist_ok: bool = False) -> None:
         os.makedirs(self.basedir_path, exist_ok=exist_ok)
+
+    def create_subdir(self, subdir_path: str) -> None:
+        pass
