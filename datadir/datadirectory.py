@@ -17,3 +17,7 @@ class DataDirectory:
     def subdir_exists(self, subdir_path: str) -> bool:
         subdir_path = os.path.join(self.basedir_path, subdir_path)
         return os.path.isdir(subdir_path)
+
+    def file_exists(self, file_path: str) -> bool:
+        file_path = os.path.join(self.basedir_path, file_path)
+        return os.path.isfile(file_path)

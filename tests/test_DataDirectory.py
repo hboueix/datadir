@@ -61,3 +61,9 @@ class TestDataDirectory:
         os.makedirs(os.path.join(TestDataDirectory.basedir, subdir))
 
         assert data_dir.subdir_exists(subdir) is True
+
+    def test_file_exists_if_not_exists(self) -> None:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        file = 'not_existing_file'
+
+        assert data_dir.file_exists(file) is False
