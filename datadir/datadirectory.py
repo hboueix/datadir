@@ -1,4 +1,5 @@
 import os
+from typing import Dict
 
 
 class DataDirectory:
@@ -21,3 +22,12 @@ class DataDirectory:
     def file_exists(self, file_path: str) -> bool:
         file_path = os.path.join(self.basedir_path, file_path)
         return os.path.isfile(file_path)
+
+    def get_all_subdirs_and_files(self) -> Dict[str, str]:
+        all_subdirs, all_files = list(), list()
+        for root, dirs, files in os.walk(self.basedir_path):
+            for name in files:
+                all_files.append(os.path.join(root, name))
+            for name in dirs:
+                all_subdirs.append(os.path.join(root, name))
+        return {'subdirs': all_subdirs, 'files': all_files}

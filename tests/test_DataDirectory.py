@@ -1,6 +1,6 @@
 import os
 import shutil
-from typing import Any
+from typing import Any, Dict
 
 from datadir import DataDirectory
 
@@ -76,3 +76,28 @@ class TestDataDirectory:
             f.write('')
 
         assert data_dir.file_exists(file) is True
+
+    def test_get_all_subdirs_and_files_if_empty_basedir(self) -> Dict[str, str]:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        
+        tree = data_dir.get_all_subdirs_and_files()
+        
+        assert tree == {'subdirs': [], 'files': []}
+
+    def test_get_all_subdirs_and_files_if_not_empty_basedir(self) -> Dict[str, str]:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        subdir = 'subdir'
+        file = 'file'
+
+        os.makedirs(os.path.join(TestDataDirectory.basedir, subdir))
+        with open(os.path.join(TestDataDirectory.basedir, file), 'w') as f:
+            f.write('')
+        with open(os.path.join(TestDataDirectory.basedir, subdir, file), 'w') as f:
+            f.write('')
+
+        tree = data_dir.get_all_subdirs_and_files()
+        
+        assert tree == {
+            'subdirs': ['test_basedir\\subdir'], 
+            'files': ['test_basedir\\file', 'test_basedir\\subdir\\file']
+        }
