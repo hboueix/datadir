@@ -1,4 +1,5 @@
 import os
+import shutil
 from typing import Dict
 
 
@@ -32,6 +33,9 @@ class DataDirectory:
                 all_subdirs.append(os.path.join(root, name))
         return {'subdirs': all_subdirs, 'files': all_files}
 
-    def rm_subdir(self, subdir_path: str) -> None:
+    def rm_subdir(self, subdir_path: str, force: bool = False) -> None:
         subdir_path = os.path.join(self.basedir_path, subdir_path)
-        os.rmdir(subdir_path)
+        if force:
+            shutil.rmtree(subdir_path)
+        else:
+            os.rmdir(subdir_path)

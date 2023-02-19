@@ -116,3 +116,15 @@ class TestDataDirectory:
 
         with pytest.raises(OSError):
             data_dir.rm_subdir(subdir)
+
+    def test_rm_subdir_if_not_empty_and_force(self) -> None:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        subdir = 'subdir'
+        file = 'file'
+        os.makedirs(os.path.join(TestDataDirectory.basedir, subdir))
+        with open(os.path.join(TestDataDirectory.basedir, subdir, file), 'w') as f:
+            f.write('')
+
+        data_dir.rm_subdir(subdir, force=True)
+
+        assert os.path.isdir(os.path.join(TestDataDirectory.basedir, subdir)) is False
