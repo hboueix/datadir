@@ -1,6 +1,6 @@
 import os
 import shutil
-from typing import Dict
+from typing import Dict, List
 
 
 class DataDirectory:
@@ -48,3 +48,11 @@ class DataDirectory:
         file_path = os.path.join(self.basedir_path, file_path)
         with open(file_path, 'r') as f:
             return f.read().splitlines()
+
+    def save_text_file(self, file_path: str, content: str | List[str]) -> None:
+        file_path = os.path.join(self.basedir_path, file_path)
+        with open(file_path, 'w') as f:
+            if type(content) is str:
+                f.write(content)
+            else:
+                f.writelines(content)
