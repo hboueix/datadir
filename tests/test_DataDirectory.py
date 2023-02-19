@@ -106,6 +106,13 @@ class TestDataDirectory:
 
         assert os.path.isdir(os.path.join(TestDataDirectory.basedir, subdir)) is False
 
+    def test_rm_subdir_if_not_exists(self) -> None:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        subdir = TestDataDirectory.not_existing_dir
+
+        with pytest.raises(OSError):
+            data_dir.rm_subdir(subdir)
+
     def test_rm_subdir_if_not_empty(self) -> None:
         data_dir = DataDirectory(TestDataDirectory.basedir)
         subdir = 'subdir'
