@@ -135,3 +135,20 @@ class TestDataDirectory:
         data_dir.rm_subdir(subdir, force=True)
 
         assert os.path.isdir(os.path.join(TestDataDirectory.basedir, subdir)) is False
+
+    def test_rm_file_if_not_exists(self) -> None:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        file = 'not_existing_file'
+
+        with pytest.raises(OSError):
+            data_dir.rm_file(file)
+
+    def test_rm_file_if_exists(self) -> None:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        file = 'file'
+        with open(os.path.join(TestDataDirectory.basedir, file), 'w') as f:
+            f.write('')
+
+        data_dir.rm_file(file)
+
+        assert os.path.isfile(os.path.join(TestDataDirectory.basedir, file)) is False

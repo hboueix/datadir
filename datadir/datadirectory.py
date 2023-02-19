@@ -39,3 +39,7 @@ class DataDirectory:
             shutil.rmtree(subdir_path)
         else:
             os.rmdir(subdir_path)
+
+    def rm_file(self, file_path: str) -> None:
+        file_path = os.path.join(self.basedir_path, file_path)
+        os.remove(file_path)
