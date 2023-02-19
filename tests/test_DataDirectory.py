@@ -1,6 +1,7 @@
 import os
 import shutil
 import pytest
+import pandas as pd
 from typing import Any, Dict
 
 from datadir import DataDirectory
@@ -231,3 +232,23 @@ class TestDataDirectory:
 
         with pytest.raises(ValueError):
             data_dir.save_text_file(file, text, mode='invalid_mode')
+
+    def test_save_df_if_csv_path(self) -> None:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        file = 'file.csv'
+        df = pd.DataFrame({'col1': [1, 2], 'col2': ['a', 'b']})
+
+        data_dir.save_df(file, df, index=False)
+
+        df2 = pd.read_csv(os.path.join(TestDataDirectory.basedir, file))
+        assert df.equals(df2)
+
+    def test_save_df_if_txt_path(self) -> None:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        file = 'file.txt'
+        df = pd.DataFrame({'col1': [1, 2], 'col2': ['a', 'b']})
+
+        data_dir.save_df(file, df, index=False)
+
+        df2 = pd.read_csv(os.path.join(TestDataDirectory.basedir, file))
+        assert df.equals(df2)

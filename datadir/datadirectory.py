@@ -1,6 +1,7 @@
 import os
 import shutil
-from typing import Dict, List, Literal
+import pandas as pd
+from typing import Any, Dict, List, Literal
 
 
 class DataDirectory:
@@ -59,3 +60,7 @@ class DataDirectory:
                 f.write(content)
             else:
                 f.writelines(content)
+
+    def save_df(self, file_path: str, df: pd.DataFrame, **kwargs: Any) -> None:
+        file_path = os.path.join(self.basedir_path, file_path)
+        df.to_csv(file_path, **kwargs)
