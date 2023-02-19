@@ -1,6 +1,6 @@
 import os
 import shutil
-from typing import Dict, List
+from typing import Dict, List, Literal
 
 
 class DataDirectory:
@@ -49,9 +49,12 @@ class DataDirectory:
         with open(file_path, 'r') as f:
             return f.read().splitlines()
 
-    def save_text_file(self, file_path: str, content: str | List[str]) -> None:
+    def save_text_file(self, file_path: str, content: str | List[str], mode: Literal['w', 'a'] = 'w') -> None:
+        if mode not in ('w', 'a'):
+            raise ValueError('Invalid mode, should be either "w" or "a"')
+
         file_path = os.path.join(self.basedir_path, file_path)
-        with open(file_path, 'w') as f:
+        with open(file_path, mode) as f:
             if type(content) is str:
                 f.write(content)
             else:
