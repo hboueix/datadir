@@ -63,4 +63,8 @@ class DataDirectory:
 
     def save_df(self, file_path: str, df: pd.DataFrame, **kwargs: Any) -> None:
         file_path = os.path.join(self.basedir_path, file_path)
-        df.to_csv(file_path, **kwargs)
+        file_ext = os.path.splitext(file_path)[1]
+        if file_ext in ('.csv', '.txt'):
+            df.to_csv(file_path, **kwargs)
+        elif file_ext == '.xlsx':
+            df.to_excel(file_path, **kwargs)
