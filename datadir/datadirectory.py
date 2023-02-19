@@ -70,3 +70,5 @@ class DataDirectory:
             df.to_excel(file_path, **kwargs)
         elif file_ext == '.parquet':
             df.to_parquet(file_path, **kwargs)
+        else:
+            raise ValueError(f'Invalid file extension: {file_ext}')
