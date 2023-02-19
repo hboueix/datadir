@@ -31,3 +31,7 @@ class DataDirectory:
             for name in dirs:
                 all_subdirs.append(os.path.join(root, name))
         return {'subdirs': all_subdirs, 'files': all_files}
+
+    def rm_subdir(self, subdir_path: str) -> None:
+        subdir_path = os.path.join(self.basedir_path, subdir_path)
+        os.rmdir(subdir_path)

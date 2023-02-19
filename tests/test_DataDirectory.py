@@ -1,5 +1,6 @@
 import os
 import shutil
+import pytest
 from typing import Any, Dict
 
 from datadir import DataDirectory
@@ -95,3 +96,23 @@ class TestDataDirectory:
             'subdirs': ['test_basedir\\subdir'], 
             'files': ['test_basedir\\file', 'test_basedir\\subdir\\file']
         }
+
+    def test_rm_subdir_if_empty(self) -> None:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        subdir = 'subdir'
+        os.makedirs(os.path.join(TestDataDirectory.basedir, subdir))
+
+        data_dir.rm_subdir(subdir)
+
+        assert os.path.isdir(os.path.join(TestDataDirectory.basedir, subdir)) is False
+
+    def test_rm_subdir_if_not_empty(self) -> None:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        subdir = 'subdir'
+        file = 'file'
+        os.makedirs(os.path.join(TestDataDirectory.basedir, subdir))
+        with open(os.path.join(TestDataDirectory.basedir, subdir, file), 'w') as f:
+            f.write('')
+
+        with pytest.raises(OSError):
+            data_dir.rm_subdir(subdir)
