@@ -43,3 +43,8 @@ class DataDirectory:
     def rm_file(self, file_path: str) -> None:
         file_path = os.path.join(self.basedir_path, file_path)
         os.remove(file_path)
+
+    def get_text_file(self, file_path: str) -> str:
+        file_path = os.path.join(self.basedir_path, file_path)
+        with open(file_path, 'r') as f:
+            return f.read().splitlines()

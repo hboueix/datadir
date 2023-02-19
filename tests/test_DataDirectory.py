@@ -152,3 +152,30 @@ class TestDataDirectory:
         data_dir.rm_file(file)
 
         assert os.path.isfile(os.path.join(TestDataDirectory.basedir, file)) is False
+
+    def test_get_text_file_if_not_exists(self) -> None:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        file = 'not_existing_file'
+
+        with pytest.raises(OSError):
+            data_dir.get_text_file(file)
+
+    def test_get_text_file_if_exists_and_empty(self) -> None:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        file = 'file'
+        with open(os.path.join(TestDataDirectory.basedir, file), 'w') as f:
+            f.write('')
+
+        text = data_dir.get_text_file(file)
+
+        assert text == []
+
+    def test_get_text_file_if_existsand_not_empty(self) -> None:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        file = 'file'
+        with open(os.path.join(TestDataDirectory.basedir, file), 'w') as f:
+            f.write('test\nmultilines')
+
+        text = data_dir.get_text_file(file)
+
+        assert text == ['test', 'multilines']
