@@ -223,3 +223,11 @@ class TestDataDirectory:
 
         with open(os.path.join(TestDataDirectory.basedir, file), 'r') as f:
             assert f.read().splitlines(keepends=True) == text + text
+
+    def test_save_text_file_if_invalid_mode(self) -> None:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        file = 'file'
+        text = 'test\nmultilines'
+
+        with pytest.raises(ValueError):
+            data_dir.save_text_file(file, text, mode='invalid_mode')
