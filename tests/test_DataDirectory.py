@@ -280,3 +280,13 @@ class TestDataDirectory:
 
         with pytest.raises(ValueError):
             data_dir.save_df(file, df, index=False)
+
+    def test_save_df_if_no_extension_path(self) -> None:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        file = 'file'
+        df = pd.DataFrame({'col1': [1, 2], 'col2': ['a', 'b']})
+
+        data_dir.save_df(file, df, index=False)
+
+        df2 = pd.read_csv(os.path.join(TestDataDirectory.basedir, file+'.csv'))
+        assert df.equals(df2)

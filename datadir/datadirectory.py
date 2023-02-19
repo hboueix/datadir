@@ -1,8 +1,10 @@
 import os
 import shutil
+import logging
 import pandas as pd
 from typing import Any, Dict, List, Literal
 
+LOGGER = logging.getLogger(__name__)
 
 class DataDirectory:
 
@@ -70,5 +72,10 @@ class DataDirectory:
             df.to_excel(file_path, **kwargs)
         elif file_ext == '.parquet':
             df.to_parquet(file_path, **kwargs)
+        elif file_ext == '':
+            LOGGER.warning('Empty file extension, saving as csv')
+            df.to_csv(file_path + '.csv', **kwargs)
         else:
-            raise ValueError(f'Invalid file extension: {file_ext}')
+            raise ValueError(
+                f'Unknown file extension: "{file_ext}", should be one of: ".csv", ".txt", ".xlsx", ".parquet"'
+            )
