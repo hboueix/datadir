@@ -68,3 +68,5 @@ class DataDirectory:
             df.to_csv(file_path, **kwargs)
         elif file_ext == '.xlsx':
             df.to_excel(file_path, **kwargs)
+        elif file_ext == '.parquet':
+            df.to_parquet(file_path, **kwargs)

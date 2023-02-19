@@ -262,3 +262,13 @@ class TestDataDirectory:
 
         df2 = pd.read_excel(os.path.join(TestDataDirectory.basedir, file))
         assert df.equals(df2)
+
+    def test_save_df_if_parquet_path(self) -> None:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        file = 'file.parquet'
+        df = pd.DataFrame({'col1': [1, 2], 'col2': ['a', 'b']})
+
+        data_dir.save_df(file, df, index=False)
+
+        df2 = pd.read_parquet(os.path.join(TestDataDirectory.basedir, file))
+        assert df.equals(df2)
