@@ -354,3 +354,10 @@ class TestDataDirectory:
 
         df2 = pd.read_csv(os.path.join(TestDataDirectory.basedir, file+'.csv'))
         assert df.equals(df2)
+
+    def test_load_obj_if_not_exists(self) -> None:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        file = 'not_existing_file'
+
+        with pytest.raises(OSError):
+            data_dir.load_obj(file)

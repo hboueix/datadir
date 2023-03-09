@@ -96,3 +96,6 @@ class DataDirectory:
             raise ValueError(
                 f'Unknown file extension: "{file_ext}", should be one of: ".csv", ".txt", ".xlsx", ".parquet"'
             )
+        
+    def load_obj(self, file_path: str) -> Any:
+        pass
