@@ -260,6 +260,16 @@ class TestDataDirectory:
 
         assert df.equals(df2)
 
+    def test_get_df_if_excel_path(self) -> None:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        file = 'file.xlsx'
+        df = pd.DataFrame({'col1': [1, 2], 'col2': ['a', 'b']})
+        df.to_excel(os.path.join(TestDataDirectory.basedir, file), index=False)
+
+        df2 = data_dir.get_df(file)
+
+        assert df.equals(df2)
+
     def test_save_df_if_csv_path(self) -> None:
         data_dir = DataDirectory(TestDataDirectory.basedir)
         file = 'file.csv'
