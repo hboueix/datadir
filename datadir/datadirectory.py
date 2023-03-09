@@ -74,7 +74,7 @@ class DataDirectory:
             return pd.read_parquet(file_path, **kwargs)
         elif file_ext == '':
             LOGGER.warning('Empty file extension, reading as csv')
-            return pd.read_csv(file_path + '.csv', **kwargs)
+            return pd.read_csv(file_path, **kwargs)
         else:
             raise ValueError(
                 f'Unknown file extension: "{file_ext}", should be one of: ".csv", ".txt", ".xlsx", ".parquet"'
