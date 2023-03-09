@@ -2,6 +2,7 @@ import os
 import shutil
 import logging
 import pandas as pd
+import pickle as pkl
 from typing import Any, Dict, List, Literal
 
 LOGGER = logging.getLogger(__name__)
@@ -97,5 +98,5 @@ class DataDirectory:
                 f'Unknown file extension: "{file_ext}", should be one of: ".csv", ".txt", ".xlsx", ".parquet"'
             )
         
-    def load_obj(self, file_path: str) -> Any:
-        pass
+    def load_obj(self, file_path: str, **kwargs: Any) -> Any:
+        pkl.load(open(os.path.join(self.basedir_path, file_path), 'rb'), **kwargs)
