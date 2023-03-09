@@ -99,4 +99,4 @@ class DataDirectory:
             )
         
     def load_obj(self, file_path: str, **kwargs: Any) -> Any:
-        pkl.load(open(os.path.join(self.basedir_path, file_path), 'rb'), **kwargs)
+        return pkl.load(open(os.path.join(self.basedir_path, file_path), 'rb'), **kwargs)
