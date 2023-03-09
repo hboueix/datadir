@@ -100,3 +100,6 @@ class DataDirectory:
         
     def load_obj(self, file_path: str, **kwargs: Any) -> Any:
         return pkl.load(open(os.path.join(self.basedir_path, file_path), 'rb'), **kwargs)
+
+    def save_obj(self, file_path: str, obj: Any, **kwargs: Any) -> None:
+        pkl.dump(obj, open(os.path.join(self.basedir_path, file_path), 'wb'), **kwargs)

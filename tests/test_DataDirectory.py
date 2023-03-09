@@ -373,3 +373,11 @@ class TestDataDirectory:
         obj2 = data_dir.load_obj(file)
 
         assert obj == obj2
+
+    def test_save_obj_if_invalid_obj(self) -> None:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        file = 'invalid_obj.pkl'
+        obj = {'a': 1, 'b': 2}.keys()
+
+        with pytest.raises(TypeError):
+            data_dir.save_obj(file, obj)
