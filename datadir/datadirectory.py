@@ -63,6 +63,23 @@ class DataDirectory:
             else:
                 f.writelines(content)
 
+    def get_df(self, file_path: str, **kwargs: Any) -> pd.DataFrame:
+        file_path = os.path.join(self.basedir_path, file_path)
+        file_ext = os.path.splitext(file_path)[1]
+        if file_ext in ('.csv', '.txt'):
+            return pd.read_csv(file_path, **kwargs)
+        elif file_ext == '.xlsx':
+            return pd.read_excel(file_path, **kwargs)
+        elif file_ext == '.parquet':
+            return pd.read_parquet(file_path, **kwargs)
+        elif file_ext == '':
+            LOGGER.warning('Empty file extension, reading as csv')
+            return pd.read_csv(file_path + '.csv', **kwargs)
+        else:
+            raise ValueError(
+                f'Unknown file extension: "{file_ext}", should be one of: ".csv", ".txt", ".xlsx", ".parquet"'
+            )
+
     def save_df(self, file_path: str, df: pd.DataFrame, **kwargs: Any) -> None:
         file_path = os.path.join(self.basedir_path, file_path)
         file_ext = os.path.splitext(file_path)[1]
