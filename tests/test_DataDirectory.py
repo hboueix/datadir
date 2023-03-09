@@ -280,6 +280,13 @@ class TestDataDirectory:
 
         assert df.equals(df2)
 
+    def test_get_df_if_invalid_path_extension(self) -> None:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        file = 'file.invalid'
+
+        with pytest.raises(ValueError):
+            data_dir.get_df(file)
+
     def test_save_df_if_csv_path(self) -> None:
         data_dir = DataDirectory(TestDataDirectory.basedir)
         file = 'file.csv'
