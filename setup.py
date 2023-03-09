@@ -19,6 +19,7 @@ with open('README.md') as f:
 extras_require = {
     'test': [
         'pytest',
+        'mutatest'
     ],
 }
 
