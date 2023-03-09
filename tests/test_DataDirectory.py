@@ -2,6 +2,7 @@ import os
 import shutil
 import pytest
 import pandas as pd
+import pickle as pkl
 from typing import Any, Dict
 
 from datadir import DataDirectory
@@ -361,3 +362,14 @@ class TestDataDirectory:
 
         with pytest.raises(OSError):
             data_dir.load_obj(file)
+
+    def test_load_obj_if_exists(self) -> None:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+        file = 'file.pkl'
+        obj = {'a': 1, 'b': 2}
+        with open(os.path.join(TestDataDirectory.basedir, file), 'wb') as f:
+            pkl.dump(obj, f)
+
+        obj2 = data_dir.load_obj(file)
+
+        assert obj == obj2
