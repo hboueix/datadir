@@ -98,7 +98,7 @@ class DataDirectory:
                 f'Unknown file extension: "{file_ext}", should be one of: ".csv", ".txt", ".xlsx", ".parquet"'
             )
         
-    def load_obj(self, file_path: str, **kwargs: Any) -> Any:
+    def get_obj(self, file_path: str, **kwargs: Any) -> Any:
         return pkl.load(open(os.path.join(self.basedir_path, file_path), 'rb'), **kwargs)
 
     def save_obj(self, file_path: str, obj: Any, **kwargs: Any) -> None:

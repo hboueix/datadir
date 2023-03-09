@@ -356,21 +356,21 @@ class TestDataDirectory:
         df2 = pd.read_csv(os.path.join(TestDataDirectory.basedir, file+'.csv'))
         assert df.equals(df2)
 
-    def test_load_obj_if_not_exists(self) -> None:
+    def test_get_obj_if_not_exists(self) -> None:
         data_dir = DataDirectory(TestDataDirectory.basedir)
         file = 'not_existing_file'
 
         with pytest.raises(OSError):
-            data_dir.load_obj(file)
+            data_dir.get_obj(file)
 
-    def test_load_obj_if_exists(self) -> None:
+    def test_get_obj_if_exists(self) -> None:
         data_dir = DataDirectory(TestDataDirectory.basedir)
         file = 'file.pkl'
         obj = {'a': 1, 'b': 2}
         with open(os.path.join(TestDataDirectory.basedir, file), 'wb') as f:
             pkl.dump(obj, f)
 
-        obj2 = data_dir.load_obj(file)
+        obj2 = data_dir.get_obj(file)
 
         assert obj == obj2
 
