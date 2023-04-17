@@ -103,3 +103,6 @@ class DataDirectory:
 
     def save_obj(self, file_path: str, obj: Any, **kwargs: Any) -> None:
         pkl.dump(obj, open(os.path.join(self.basedir_path, file_path), 'wb'), **kwargs)
+
+    def __str__(self) -> str:
+        return self.basedir_path

@@ -21,6 +21,11 @@ class TestDataDirectory:
         if os.path.exists(TestDataDirectory.not_existing_dir):
             shutil.rmtree(TestDataDirectory.not_existing_dir)
 
+    def test_str(self) -> None:
+        data_dir = DataDirectory(TestDataDirectory.basedir)
+
+        assert str(data_dir) == TestDataDirectory.basedir
+
     def test_create_basedir_if_not_exists(self) -> None:
         _ = DataDirectory(TestDataDirectory.not_existing_dir)
 
