@@ -10,6 +10,6 @@ __title__ = 'datadir'
 __author__ = 'Hugo Boueix'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2023-present hboueix'
-__version__ = '1.0.1'
+__version__ = '1.1.0'
 
 from .datadirectory import DataDirectory
